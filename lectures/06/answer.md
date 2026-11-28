@@ -14,7 +14,14 @@
 
 <!-- 基礎・実装・発展のどれか1つに取り組めば完了です。 -->
 
-- 取り組んだレベル：基礎 / 実装 / 発展
-- やったこと：
-- 結果：
-- 気づき・疑問：
+- 取り組んだレベル：基礎
+- やったこと：app/mcp_server.pyに　server.tool()(tools.get_lecture_summary)を1行追加。
+　　　　　　　エージェント側 (mcp_servers.json, mcp_agent.py)は不変
+- 結果：--list-tools に glossary_get_lecture_summary が増えた
+　　　　変更前は、呼ばれたツールが glossary_search_glossary({'query':'第2回'})だったが、
+　　　　変更後は、glossary_get_lecture_summary({'lecture':2})が呼ばれた。
+　　　　ツールが返す結果も、LoRAの定義だけだったのが、第2回ファインチューニンンとLoRAから始まる要点が列挙されるようになった。
+　　　　入力 5,489 → 5,944、出力　137 → 193
+- 気づき・疑問：新しいツールが公開され、Agentはその新しいツールの方がqueryへの回答に適していると判断した模様。
+　　　　変更前は講義資料以外の自らの知識から答えたQLoRAの話が含まれていたが、変更後は講義内容に忠実になった。
+　　　　変更後にコードが壊れていないかを見るために、pytestを行ったが、無事passした。
